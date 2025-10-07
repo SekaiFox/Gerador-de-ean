@@ -27,7 +27,7 @@ def calcular_digito_verificador(codigo12):
 
 # Função para gerar um código EAN-13 válido
 def gerar_ean13():
-    codigo12 = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+    codigo12 = ''.join([str(random.randint(1, 10)) for _ in range(12)])
     digito = calcular_digito_verificador(codigo12)
     return codigo12 + digito
 
