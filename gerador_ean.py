@@ -25,15 +25,17 @@ def calcular_digito_verificador(codigo12):
     resto = soma % 10
     return str((10 - resto) % 10)
 
-# Função para gerar um código EAN-13 válido
+# Função para gerar um código EAN-13 válido (com início 789)
 def gerar_ean13():
-    codigo12 = ''.join([str(random.randint(1, 10)) for _ in range(12)])
+    prefixo = "789"  # código do Brasil
+    corpo = ''.join([str(random.randint(0, 9)) for _ in range(9)])  # completa até 12 dígitos
+    codigo12 = prefixo + corpo
     digito = calcular_digito_verificador(codigo12)
     return codigo12 + digito
 
 # Interface Streamlit
 st.set_page_config(page_title="Gerador de EAN-13", layout="centered")
-st.title("📦 Gerador de Códigos EAN-13 Válidos")
+st.title("📦 Gerador de Códigos EAN-13 Válidos (Iniciando com 789)")
 
 quantidade = st.number_input("Quantos códigos deseja gerar?", min_value=1, max_value=1000, value=10)
 
