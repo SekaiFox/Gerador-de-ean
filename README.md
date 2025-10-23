@@ -1,86 +1,48 @@
-⚠️ AVISO IMPORTANTE
-Este projeto foi desenvolvido para fins exclusivamente acadêmicos e de teste (sandbox).
+# 🚀 Gerador de EAN-13 para E-commerce
 
-Os dados gerados (CPFs, contas, cartões) são 100% fictícios e aleatórios. Eles apenas respeitam os algoritmos de validação matemática (Módulo 10/Luhn, Módulo 11) para garantir que sejam estruturalmente válidos para testes de software e sistemas de cadastro.
+Este projeto é uma aplicação web, construída em Python e Streamlit, para gerar listas de códigos EAN-13 matematicamente válidos.
 
-NÃO utilize estes dados em ambientes de produção ou para qualquer tentativa de transação real.
+![GvVNo6m](https://github.com/user-attachments/assets/ec70edc4-e08d-42b6-a522-8ad4d8b70312)
 
+
+## 🎯 O Problema (Contexto de E-commerce)
+
+Como gerente de e-commerce, sei que marketplaces como Shopee, Mercado Livre e Amazon exigem um código EAN-13 (código de barras) para o cadastro de produtos. Para produtos artesanais, *private label* ou para a criação de *ambientes de teste*, é inviável e caro comprar códigos oficiais apenas para validar um cadastro.
+
+## 💡 A Solução (Habilidade Técnica)
+
+Esta ferramenta resolve o problema gerando códigos EAN-13 **sinteticamente válidos**. A aplicação:
+1.  Gera os primeiros 12 dígitos aleatoriamente (com prefixo 789 do Brasil).
+2.  Calcula o **dígito verificador** final usando o algoritmo de validação padrão do EAN-13.
+3.  Permite gerar grandes quantidades e exportar a lista para um arquivo `.xlsx` (Excel), pronta para ser usada em planilhas de cadastro em massa.
+
+## 🛠️ Tecnologias Utilizadas
+* **Python**
+* **Streamlit** (para a interface web)
+* **Pandas** (para a geração do DataFrame e exportação para Excel)
+
+## 🏁 Como Executar o Projeto
+
+1.  Clone o repositório:
+    ```bash
+    git clone [https://github.com/SekaiFox/Gerador-de-ean.git](https://github.com/SekaiFox/Gerador-de-ean.git)
+    cd Gerador-de-ean
+    ```
+2.  Crie e ative um ambiente virtual:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # No Windows: venv\Scripts\activate
+    ```
+3.  Instale as dependências (crie um arquivo `requirements.txt` com o conteúdo abaixo):
+    ```bash
+    pip install -r requirements.txt
+    ```
+4.  Execute o app Streamlit:
+    ```bash
+    streamlit run gerador_ean.py
+    ```
+
+**Arquivo `requirements.txt`:**
 ----------
-Gerador de EAN-13
-
-Projeto simples para gerar códigos EAN-13 válidos (prefixo 789). O repositório contém duas interfaces:
-
-- `gerador_ean.py` — versão web via Streamlit.
-- `gerador_ean_gui.py` — versão desktop usando Tkinter, adequada para converter em um executável Windows.
-
-Requisitos
-----------
-
-Python 3.8+ e pip.
-
-Instalar dependências (opcional, recomendado em ambiente virtual):
-
-```powershell
-pip install -r requirements.txt
-```
-
-Gerar o executável (.exe) no Windows
-------------------------------------
-
-O repositório inclui um script PowerShell `build_exe.ps1` que automatiza:
-
-- criação de um ambiente virtual `.venv` (se não existir),
-- instalação das dependências, e
-- empacotamento com PyInstaller em um único executável.
-
-No PowerShell (na pasta do projeto):
-
-```powershell
-Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass; .\build_exe.ps1
-```
-
-Ao final, o executável ficará em `dist\GeradorEAN.exe`.
-
-Executar sem empacotar
-----------------------
-
- - Versão desktop (Tkinter):
-
-```powershell
-python gerador_ean_gui.py
-```
-
- - Versão web (Streamlit):
-
-```powershell
-pip install streamlit
-streamlit run gerador_ean.py
-```
-
-Notas
------
-
-- O executável gerado com PyInstaller inclui todas as dependências, por isso pode ficar grande.
-- Se preferir outro empacotador (por exemplo, briefcase, cx_Freeze), adapte o script `build_exe.ps1`.
-
-Contribuições e suporte
-----------------------
-
-Abra uma issue se tiver problemas ao executar o build ou rodar o app.
-
-Gerar um instalador Windows (Inno Setup)
----------------------------------------
-
-Se quiser criar um instalador .exe para distribuição (ex.: um setup que copia o executável para Program Files e cria atalhos), use o Inno Setup.
-
-1. Gere primeiro o executável com PyInstaller (veja seção "Gerar o executável (.exe) no Windows").
-2. Baixe e instale o Inno Setup: https://jrsoftware.org/isinfo.php
-3. No diretório do projeto execute:
-
-```powershell
-.\build_installer.ps1
-```
-
-O script procura pelo `ISCC.exe` (Inno Setup Compiler) e compila o script `installer.iss`, gerando um instalador (arquivo .exe) com o nome `GeradorEAN_Installer.exe` ou similar no diretório do projeto.
 
 Se preferir compilar manualmente, abra `installer.iss` no Inno Setup IDE e clique em Compile.
